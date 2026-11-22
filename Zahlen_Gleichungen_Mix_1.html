@@ -1,0 +1,724 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Zahlen und Gleichungen, Vertiefung – Mathematik, 8 Aufgaben mit 43 Punkten zum Üben mit Selbstkontrolle</title>
+<style>
+  :root{
+    --paper:#fdfdfb; --grid:#e3ebf5; --ink:#1d2433; --blue:#1f4fa3; --blue-soft:#e8eefa;
+    --red:#c22f3a; --red-soft:#fbe9ea; --green:#2c7a4b; --green-soft:#e5f3ea; --muted:#5d6678; --line:#c9d3e2;
+  }
+  *{box-sizing:border-box}
+  html{-webkit-text-size-adjust:100%}
+  body{
+    margin:0; color:var(--ink); font:17px/1.55 "Segoe UI",system-ui,-apple-system,Roboto,Helvetica,Arial,sans-serif;
+    background-color:var(--paper);
+    background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);
+    background-size:22px 22px;
+  }
+  .wrap{max-width:780px;margin:0 auto;padding:28px 18px 80px}
+  header h1{font-family:Georgia,"Times New Roman",serif;font-size:2rem;line-height:1.2;margin:0 0 6px;color:var(--blue)}
+  header p{margin:0 0 6px;color:var(--muted)}
+  .bar{position:sticky;top:0;z-index:5;background:rgba(253,253,251,.96);border-bottom:2px solid var(--blue);
+       margin:18px -18px 22px;padding:10px 18px;display:flex;gap:14px;align-items:center;flex-wrap:wrap}
+  .meter{flex:1;min-width:160px;height:12px;background:var(--blue-soft);border-radius:6px;overflow:hidden}
+  .meter span{display:block;height:100%;width:0;background:var(--green);transition:width .4s}
+  .score{font-weight:600;white-space:nowrap}
+  .task{background:#fff;border:1px solid var(--line);border-left:5px solid var(--blue);border-radius:6px;
+        padding:16px 18px 14px;margin:0 0 18px}
+  .task.done{border-left-color:var(--green)}
+  .head{display:flex;justify-content:space-between;align-items:baseline;gap:10px;margin-bottom:6px}
+  .num{font-family:Georgia,serif;font-size:1.35rem;font-weight:700;color:var(--blue)}
+  .src{font-size:.82rem;color:var(--muted);text-align:right}
+  .q{margin:2px 0 10px}
+  .field{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin:8px 0}
+  input[type=text]{font:inherit;font-size:1.05rem;padding:7px 10px;width:150px;border:none;border-bottom:2px solid var(--blue);
+        background:var(--blue-soft);border-radius:4px 4px 0 0;color:var(--blue)}
+  input.wide{width:min(100%,320px)}
+  input[type=text]:focus{outline:3px solid #9fb8e6;outline-offset:1px}
+  input.ok{border-bottom-color:var(--green);background:var(--green-soft);color:var(--green)}
+  input.no{border-bottom-color:var(--red);background:var(--red-soft);color:var(--red)}
+  .unit{color:var(--muted)}
+  .mc{display:flex;flex-wrap:wrap;gap:8px;margin:6px 0 4px}
+  .mc button{font:inherit;padding:7px 14px;border:2px solid var(--line);background:#fff;border-radius:6px;cursor:pointer;color:var(--ink)}
+  .mc button[aria-pressed=true]{border-color:var(--blue);background:var(--blue-soft);color:var(--blue);font-weight:600}
+  .mc button.ok{border-color:var(--green);background:var(--green-soft);color:var(--green)}
+  .mc button.no{border-color:var(--red);background:var(--red-soft);color:var(--red)}
+  .actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+  .btn{font:inherit;font-size:.95rem;padding:7px 14px;border-radius:6px;cursor:pointer;border:2px solid var(--blue);background:var(--blue);color:#fff}
+  .btn.ghost{background:#fff;color:var(--blue)}
+  .btn:disabled{opacity:.4;cursor:not-allowed}
+  .btn:focus-visible,.mc button:focus-visible{outline:3px solid #9fb8e6;outline-offset:2px}
+  .fb{margin-top:8px;font-weight:600;min-height:1.2em}
+  .fb.ok{color:var(--green)} .fb.no{color:var(--red)}
+  .box{margin-top:10px;padding:12px 14px;border-radius:6px;font-size:.97rem}
+  .tip{background:#fff8e1;border:1px dashed #d9b44a}
+  .sol{background:var(--green-soft);border:1px solid #b9dcc6}
+  .sol h4{margin:0 0 6px;font-size:1rem;color:var(--green)}
+  .sol .alt{margin-top:8px;padding-top:8px;border-top:1px dashed #9ccab0}
+  .calc{font-family:Georgia,serif;font-size:1.02rem}
+  table.wt{border-collapse:collapse;margin:6px 0}
+  table.wt td,table.wt th{border:1px solid var(--line);padding:4px 12px;text-align:center}
+  svg{max-width:100%;height:auto}
+  .end{background:#fff;border:2px solid var(--blue);border-radius:8px;padding:18px;margin-top:26px}
+  .end h2{font-family:Georgia,serif;margin:0 0 8px;color:var(--blue)}
+  footer{margin-top:30px;font-size:.82rem;color:var(--muted)}
+  .mclabel{margin:10px 0 2px;font-weight:600}
+  #calcBtn{position:fixed;right:16px;bottom:16px;z-index:20;font:inherit;font-weight:600;padding:11px 16px;border-radius:30px;border:none;background:var(--blue);color:#fff;box-shadow:0 3px 10px rgba(0,0,0,.25);cursor:pointer}
+  #calcBox{position:fixed;right:12px;bottom:72px;z-index:21;width:min(320px,calc(100vw - 24px));background:#fff;border:2px solid var(--blue);border-radius:12px;padding:12px;box-shadow:0 6px 24px rgba(0,0,0,.25)}
+  #calcBox[hidden]{display:none}
+  .chead{display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;font-weight:600;color:var(--blue)}
+  .chead button{font:inherit;border:none;background:none;font-size:1.3rem;cursor:pointer;color:var(--muted)}
+  #cExpr{width:100%;font:inherit;font-size:1.1rem;padding:6px 8px;border:1px solid var(--line);border-radius:6px;text-align:right;background:#f6f8fc}
+  #cRes{text-align:right;font-size:1.5rem;font-weight:700;min-height:2rem;color:var(--ink);overflow-wrap:anywhere}
+  .keys{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-top:6px}
+  .keys button{font:inherit;font-size:1.1rem;padding:10px 0;border:1px solid var(--line);border-radius:8px;background:#f3f6fb;cursor:pointer;color:var(--ink)}
+  .keys button.op{background:var(--blue-soft);color:var(--blue);font-weight:600}
+  .keys button.eq{background:var(--blue);color:#fff;font-weight:700}
+  .keys button.cl{background:var(--red-soft);color:var(--red)}
+  #cTake{width:100%;margin-top:8px;font:inherit;font-weight:600;padding:9px;border:none;border-radius:8px;background:var(--green);color:#fff;cursor:pointer}
+  #cTake:disabled{opacity:.45;cursor:not-allowed}
+  @media print{ #calcBtn,#calcBox{display:none} }
+  @media (max-width:520px){ body{font-size:16px} header h1{font-size:1.6rem} .head{flex-direction:column;gap:0} .src{text-align:left} }
+  @media (prefers-reduced-motion:reduce){ .meter span{transition:none} }
+  @media print{ .bar,.actions,.fb{display:none} body{background:none} .task{break-inside:avoid} }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1>Zahlen und Gleichungen, Vertiefung</h1>
+    <p>Mathematik, 8 Aufgaben mit 43 Punkten zum Üben mit Selbstkontrolle.</p>
+    <p>So gehst du vor: Löse jede Aufgabe zuerst selbst im Heft. Trage dann dein Ergebnis ein oder wähle eine Antwort aus und klicke auf „Prüfen“. Danach kannst du dir den Lösungsvorschlag ansehen. Unten rechts findest du den Taschenrechner, nutze ihn aber erst zur Kontrolle, denn Kopfrechnen und schriftliches Rechnen sind hier das Ziel.</p>
+  </header>
+
+  <div class="bar" role="status" aria-live="polite">
+    <div class="meter" aria-hidden="true"><span id="meter"></span></div>
+    <div class="score" id="score">0 Punkte</div>
+    <button class="btn ghost" id="reset" type="button">Neu starten</button>
+  </div>
+
+  <main id="tasks"></main>
+
+  <section class="end" id="end">
+    <h2>Deine Auswertung</h2>
+    <p id="endText">Bearbeite die Aufgaben und klicke dann hier auf „Auswerten“.</p>
+    <button class="btn" id="evalBtn" type="button">Auswerten</button>
+  </section>
+
+  <footer>Aufgaben nach dem Übungsblatt „Zahlen &amp; Gleichungen, Vertiefung“ für den Unterricht aufbereitet. Die Seite speichert keine Eingaben und sendet keine Daten.</footer>
+</div>
+
+<button id="calcBtn" type="button" aria-expanded="false" aria-controls="calcBox">🧮 Rechner</button>
+<div id="calcBox" role="dialog" aria-label="Taschenrechner" hidden>
+  <div class="chead"><span>Taschenrechner</span><button type="button" id="cClose" aria-label="Rechner schließen">✕</button></div>
+  <input id="cExpr" type="text" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" aria-label="Rechnung">
+  <div id="cRes" aria-live="polite"></div>
+  <div class="keys">
+    <button type="button" class="cl" data-c="AC">AC</button><button type="button" class="op" data-c="DEL">⌫</button><button type="button" class="op" data-c="(">(</button><button type="button" class="op" data-c=")">)</button>
+    <button type="button" data-c="7">7</button><button type="button" data-c="8">8</button><button type="button" data-c="9">9</button><button type="button" class="op" data-c=":">:</button>
+    <button type="button" data-c="4">4</button><button type="button" data-c="5">5</button><button type="button" data-c="6">6</button><button type="button" class="op" data-c="·">·</button>
+    <button type="button" data-c="1">1</button><button type="button" data-c="2">2</button><button type="button" data-c="3">3</button><button type="button" class="op" data-c="−">−</button>
+    <button type="button" data-c="0">0</button><button type="button" data-c=",">,</button><button type="button" class="eq" data-c="=">=</button><button type="button" class="op" data-c="+">+</button>
+    <button type="button" class="op" data-c="√(">√</button><button type="button" class="op" data-c="²">x²</button><button type="button" class="op" data-c="π">π</button><button type="button" class="op" data-c="Ans">Ans</button>
+  </div>
+  <button type="button" id="cTake" disabled>Ergebnis ins Antwortfeld übernehmen</button>
+</div>
+
+<script>
+/* Aufgabentypen:
+   "num"  Zahlenfeld, accept = Liste akzeptierter Zahlen (z. B. Rundungsvarianten, andere Einheiten)
+   "mc"   Auswahl, options = Liste, correct = Index der richtigen Option
+   "text" Kurzantwort, accept = Liste akzeptierter Wörter/Begriffe (Groß-/Kleinschreibung egal)
+   Optional pro Aufgabe: fig (SVG/HTML), points (Gesamtpunkte, nur bei komplett richtig), alt (Auch-richtig-Hinweis) */
+const T = [
+ {
+  "src": "Arbeitsblatt, Aufgabe 1",
+  "q": "Prüfe für jede Gleichung, ob die Zahl die Lösung ist. Setze die Zahl für x ein und rechne nach.",
+  "parts": [
+   {
+    "type": "mc",
+    "label": "a) Zahl 5 &nbsp;|&nbsp; A: x · 3 = 18",
+    "options": [
+     "5 ist Lösung",
+     "5 ist keine Lösung"
+    ],
+    "correct": 1
+   },
+   {
+    "type": "mc",
+    "label": "a) Zahl 5 &nbsp;|&nbsp; B: 4 · x = 20",
+    "options": [
+     "5 ist Lösung",
+     "5 ist keine Lösung"
+    ],
+    "correct": 0
+   },
+   {
+    "type": "mc",
+    "label": "b) Zahl 8 &nbsp;|&nbsp; A: 5 · x = 42",
+    "options": [
+     "8 ist Lösung",
+     "8 ist keine Lösung"
+    ],
+    "correct": 1
+   },
+   {
+    "type": "mc",
+    "label": "b) Zahl 8 &nbsp;|&nbsp; B: x · 7 = 56",
+    "options": [
+     "8 ist Lösung",
+     "8 ist keine Lösung"
+    ],
+    "correct": 0
+   }
+  ],
+  "tip": "Ersetze x durch die Zahl und rechne die linke Seite aus. Kommt genau die Zahl auf der rechten Seite heraus, ist es eine Lösung.",
+  "sol": "<p class=\"calc\">a) A: 5 · 3 = 15 und 15 ≠ 18, also <b>keine Lösung</b><br>a) B: 4 · 5 = 20 und 20 = 20, also <b>Lösung</b><br>b) A: 5 · 8 = 40 und 40 ≠ 42, also <b>keine Lösung</b><br>b) B: 8 · 7 = 56 und 56 = 56, also <b>Lösung</b></p>",
+  "alt": "Zum Vergleich: Bei x · 3 = 18 wäre 6 die Lösung, bei 5 · x = 42 gibt es keine ganze Zahl als Lösung."
+ },
+ {
+  "src": "Arbeitsblatt, Aufgabe 2",
+  "q": "Löse die Gleichungen im Kopf.",
+  "parts": [
+   {
+    "type": "num",
+    "label": "a) x + 8 = 20 &nbsp;&nbsp; x =",
+    "accept": [
+     12
+    ]
+   },
+   {
+    "type": "num",
+    "label": "b) x − 7 = 42 &nbsp;&nbsp; x =",
+    "accept": [
+     49
+    ]
+   },
+   {
+    "type": "num",
+    "label": "c) 11 + x = 18 &nbsp;&nbsp; x =",
+    "accept": [
+     7
+    ]
+   },
+   {
+    "type": "num",
+    "label": "d) 22 − x = 15 &nbsp;&nbsp; x =",
+    "accept": [
+     7
+    ]
+   }
+  ],
+  "tip": "Frage dich: Welche Zahl muss ich für x einsetzen, damit die Gleichung stimmt? Bei d) hilft die Frage: 22 minus wie viel ergibt 15?",
+  "sol": "<p class=\"calc\">x + 8 = 20 &nbsp;&nbsp;| − 8<br>x = <b>12</b><br>Probe: 12 + 8 = 20 ✓<br><br>x − 7 = 42 &nbsp;&nbsp;| + 7<br>x = <b>49</b><br>Probe: 49 − 7 = 42 ✓<br><br>11 + x = 18 &nbsp;&nbsp;| − 11<br>x = <b>7</b><br>Probe: 11 + 7 = 18 ✓<br><br>22 − x = 15 &nbsp;&nbsp;| + x<br>22 = 15 + x &nbsp;&nbsp;| − 15<br>7 = x, also x = <b>7</b><br>Probe: 22 − 7 = 15 ✓</p>",
+  "alt": "Im Kopf geht es auch mit der Umkehraufgabe, zum Beispiel bei a) 20 − 8 = 12 und bei d) 22 − 15 = 7."
+ },
+ {
+  "src": "Arbeitsblatt, Aufgabe 3 (umgewandelt)",
+  "q": "Auf dem Bildschirm kannst du nicht zeichnen, deshalb ist die Aufgabe umgedreht. Die Zahlen sind schon eingetragen. Lies ab, welche Zahl an jedem Pfeil steht. Ein Strich bedeutet 1.",
+  "fig": "<p><b>a)</b></p><svg viewBox=\"0 -8 620 128\" role=\"img\" aria-label=\"Zahlenstrahl von 55 bis 77 mit Markierungen A bis E\" xmlns=\"http://www.w3.org/2000/svg\"><line x1=\"15\" y1=\"70\" x2=\"608\" y2=\"70\" stroke=\"#1d2433\" stroke-width=\"2\"/><polygon points=\"614,70 602,64 602,76\" fill=\"#1d2433\"/><line x1=\"30.0\" y1=\"64\" x2=\"30.0\" y2=\"76\" stroke=\"#1d2433\" stroke-width=\"1.2\"/><line x1=\"55.5\" y1=\"64\" x2=\"55.5\" y2=\"76\" stroke=\"#1d2433\" stroke-width=\"1.2\"/><line x1=\"80.9\" y1=\"64\" x2=\"80.9\" y2=\"76\" stroke=\"#1d2433\" stroke-width=\"1.2\"/><line x1=\"106.4\" y1=\"64\" x2=\"106.4\" y2=\"76\" stroke=\"#1d2433\" stroke-width=\"1.2\"/><line x1=\"131.8\" y1=\"64\" x2=\"131.8\" y2=\"76\" stroke=\"#1d2433\" stroke-width=\"1.2\"/><line x1=\"157.3\" y1=\"59\" x2=\"157.3\" y2=\"81\" stroke=\"#1d2433\" stroke-width=\"2\"/><text x=\"157.3\" y=\"108\" font-size=\"26\" text-anchor=\"middle\" fill=\"#1d2433\">60</text><line x1=\"182.7\" y1=\"64\" x2=\"182.7\" y2=\"76\" stroke=\"#1d2433\" stroke-width=\"1.2\"/><line x1=\"208.2\" y1=\"64\" x2=\"208.2\" y2=\"76\" stroke=\"#1d2433\" stroke-width=\"1.2\"/><line x1=\"233.6\" y1=\"64\" x2=\"233.6\" y2=\"76\" stroke=\"#1d2433\" stroke-width=\"1.2\"/><line x1=\"259.1\" y1=\"64\" x2=\"259.1\" y2=\"76\" stroke=\"#1d2433\" stroke-width=\"1.2\"/><line x1=\"284.5\" y1=\"64\" x2=\"284.5\" y2=\"76\" stroke=\"#1d2433\" stroke-width=\"1.2\"/><line x1=\"310.0\" y1=\"64\" x2=\"310.0\" y2=\"76\" stroke=\"#1d2433\" stroke-width=\"1.2\"/><line x1=\"335.5\" y1=\"64\" x2=\"335.5\" y2=\"76\" stroke=\"#1d2433\" stroke-width=\"1.2\"/><line x1=\"360.9\" y1=\"64\" x2=\"360.9\" y2=\"76\" stroke=\"#1d2433\" stroke-width=\"1.2\"/><line x1=\"386.4\" y1=\"64\" x2=\"386.4\" y2=\"76\" stroke=\"#1d2433\" stroke-width=\"1.2\"/><line x1=\"411.8\" y1=\"59\" x2=\"411.8\" y2=\"81\" stroke=\"#1d2433\" stroke-width=\"2\"/><text x=\"411.8\" y=\"108\" font-size=\"26\" text-anchor=\"middle\" fill=\"#1d2433\">70</text><line x1=\"437.3\" y1=\"64\" x2=\"437.3\" y2=\"76\" stroke=\"#1d2433\" stroke-width=\"1.2\"/><line x1=\"462.7\" y1=\"64\" x2=\"462.7\" y2=\"76\" stroke=\"#1d2433\" stroke-width=\"1.2\"/><line x1=\"488.2\" y1=\"64\" x2=\"488.2\" y2=\"76\" stroke=\"#1d2433\" stroke-width=\"1.2\"/><line x1=\"513.6\" y1=\"64\" x2=\"513.6\" y2=\"76\" stroke=\"#1d2433\" stroke-width=\"1.2\"/><line x1=\"539.1\" y1=\"64\" x2=\"539.1\" y2=\"76\" stroke=\"#1d2433\" stroke-width=\"1.2\"/><line x1=\"564.5\" y1=\"64\" x2=\"564.5\" y2=\"76\" stroke=\"#1d2433\" stroke-width=\"1.2\"/><line x1=\"590.0\" y1=\"64\" x2=\"590.0\" y2=\"76\" stroke=\"#1d2433\" stroke-width=\"1.2\"/><text x=\"259.1\" y=\"18\" font-size=\"26\" font-weight=\"700\" text-anchor=\"middle\" fill=\"#c22f3a\">A</text><line x1=\"259.1\" y1=\"24\" x2=\"259.1\" y2=\"58\" stroke=\"#c22f3a\" stroke-width=\"2\"/><polygon points=\"259.1,66 254.1,56 264.1,56\" fill=\"#c22f3a\"/><text x=\"462.7\" y=\"18\" font-size=\"26\" font-weight=\"700\" text-anchor=\"middle\" fill=\"#c22f3a\">B</text><line x1=\"462.7\" y1=\"24\" x2=\"462.7\" y2=\"58\" stroke=\"#c22f3a\" stroke-width=\"2\"/><polygon points=\"462.7,66 457.7,56 467.7,56\" fill=\"#c22f3a\"/><text x=\"335.5\" y=\"18\" font-size=\"26\" font-weight=\"700\" text-anchor=\"middle\" fill=\"#c22f3a\">C</text><line x1=\"335.5\" y1=\"24\" x2=\"335.5\" y2=\"58\" stroke=\"#c22f3a\" stroke-width=\"2\"/><polygon points=\"335.5,66 330.5,56 340.5,56\" fill=\"#c22f3a\"/><text x=\"106.4\" y=\"18\" font-size=\"26\" font-weight=\"700\" text-anchor=\"middle\" fill=\"#c22f3a\">D</text><line x1=\"106.4\" y1=\"24\" x2=\"106.4\" y2=\"58\" stroke=\"#c22f3a\" stroke-width=\"2\"/><polygon points=\"106.4,66 101.4,56 111.4,56\" fill=\"#c22f3a\"/><text x=\"539.1\" y=\"18\" font-size=\"26\" font-weight=\"700\" text-anchor=\"middle\" fill=\"#c22f3a\">E</text><line x1=\"539.1\" y1=\"24\" x2=\"539.1\" y2=\"58\" stroke=\"#c22f3a\" stroke-width=\"2\"/><polygon points=\"539.1,66 534.1,56 544.1,56\" fill=\"#c22f3a\"/></svg><p><b>b)</b></p><svg viewBox=\"0 -8 620 128\" role=\"img\" aria-label=\"Zahlenstrahl von 23 bis 44 mit Markierungen A bis E\" xmlns=\"http://www.w3.org/2000/svg\"><line x1=\"15\" y1=\"70\" x2=\"608\" y2=\"70\" stroke=\"#1d2433\" stroke-width=\"2\"/><polygon points=\"614,70 602,64 602,76\" fill=\"#1d2433\"/><line x1=\"30.0\" y1=\"64\" x2=\"30.0\" y2=\"76\" stroke=\"#1d2433\" stroke-width=\"1.2\"/><line x1=\"56.7\" y1=\"64\" x2=\"56.7\" y2=\"76\" stroke=\"#1d2433\" stroke-width=\"1.2\"/><line x1=\"83.3\" y1=\"64\" x2=\"83.3\" y2=\"76\" stroke=\"#1d2433\" stroke-width=\"1.2\"/><line x1=\"110.0\" y1=\"64\" x2=\"110.0\" y2=\"76\" stroke=\"#1d2433\" stroke-width=\"1.2\"/><line x1=\"136.7\" y1=\"64\" x2=\"136.7\" y2=\"76\" stroke=\"#1d2433\" stroke-width=\"1.2\"/><line x1=\"163.3\" y1=\"64\" x2=\"163.3\" y2=\"76\" stroke=\"#1d2433\" stroke-width=\"1.2\"/><line x1=\"190.0\" y1=\"64\" x2=\"190.0\" y2=\"76\" stroke=\"#1d2433\" stroke-width=\"1.2\"/><line x1=\"216.7\" y1=\"59\" x2=\"216.7\" y2=\"81\" stroke=\"#1d2433\" stroke-width=\"2\"/><text x=\"216.7\" y=\"108\" font-size=\"26\" text-anchor=\"middle\" fill=\"#1d2433\">30</text><line x1=\"243.3\" y1=\"64\" x2=\"243.3\" y2=\"76\" stroke=\"#1d2433\" stroke-width=\"1.2\"/><line x1=\"270.0\" y1=\"64\" x2=\"270.0\" y2=\"76\" stroke=\"#1d2433\" stroke-width=\"1.2\"/><line x1=\"296.7\" y1=\"64\" x2=\"296.7\" y2=\"76\" stroke=\"#1d2433\" stroke-width=\"1.2\"/><line x1=\"323.3\" y1=\"64\" x2=\"323.3\" y2=\"76\" stroke=\"#1d2433\" stroke-width=\"1.2\"/><line x1=\"350.0\" y1=\"64\" x2=\"350.0\" y2=\"76\" stroke=\"#1d2433\" stroke-width=\"1.2\"/><line x1=\"376.7\" y1=\"64\" x2=\"376.7\" y2=\"76\" stroke=\"#1d2433\" stroke-width=\"1.2\"/><line x1=\"403.3\" y1=\"64\" x2=\"403.3\" y2=\"76\" stroke=\"#1d2433\" stroke-width=\"1.2\"/><line x1=\"430.0\" y1=\"64\" x2=\"430.0\" y2=\"76\" stroke=\"#1d2433\" stroke-width=\"1.2\"/><line x1=\"456.7\" y1=\"64\" x2=\"456.7\" y2=\"76\" stroke=\"#1d2433\" stroke-width=\"1.2\"/><line x1=\"483.3\" y1=\"59\" x2=\"483.3\" y2=\"81\" stroke=\"#1d2433\" stroke-width=\"2\"/><text x=\"483.3\" y=\"108\" font-size=\"26\" text-anchor=\"middle\" fill=\"#1d2433\">40</text><line x1=\"510.0\" y1=\"64\" x2=\"510.0\" y2=\"76\" stroke=\"#1d2433\" stroke-width=\"1.2\"/><line x1=\"536.7\" y1=\"64\" x2=\"536.7\" y2=\"76\" stroke=\"#1d2433\" stroke-width=\"1.2\"/><line x1=\"563.3\" y1=\"64\" x2=\"563.3\" y2=\"76\" stroke=\"#1d2433\" stroke-width=\"1.2\"/><line x1=\"590.0\" y1=\"64\" x2=\"590.0\" y2=\"76\" stroke=\"#1d2433\" stroke-width=\"1.2\"/><text x=\"536.7\" y=\"18\" font-size=\"26\" font-weight=\"700\" text-anchor=\"middle\" fill=\"#c22f3a\">A</text><line x1=\"536.7\" y1=\"24\" x2=\"536.7\" y2=\"58\" stroke=\"#c22f3a\" stroke-width=\"2\"/><polygon points=\"536.7,66 531.7,56 541.7,56\" fill=\"#c22f3a\"/><text x=\"296.7\" y=\"18\" font-size=\"26\" font-weight=\"700\" text-anchor=\"middle\" fill=\"#c22f3a\">B</text><line x1=\"296.7\" y1=\"24\" x2=\"296.7\" y2=\"58\" stroke=\"#c22f3a\" stroke-width=\"2\"/><polygon points=\"296.7,66 291.7,56 301.7,56\" fill=\"#c22f3a\"/><text x=\"456.7\" y=\"18\" font-size=\"26\" font-weight=\"700\" text-anchor=\"middle\" fill=\"#c22f3a\">C</text><line x1=\"456.7\" y1=\"24\" x2=\"456.7\" y2=\"58\" stroke=\"#c22f3a\" stroke-width=\"2\"/><polygon points=\"456.7,66 451.7,56 461.7,56\" fill=\"#c22f3a\"/><text x=\"83.3\" y=\"18\" font-size=\"26\" font-weight=\"700\" text-anchor=\"middle\" fill=\"#c22f3a\">D</text><line x1=\"83.3\" y1=\"24\" x2=\"83.3\" y2=\"58\" stroke=\"#c22f3a\" stroke-width=\"2\"/><polygon points=\"83.3,66 78.3,56 88.3,56\" fill=\"#c22f3a\"/><text x=\"163.3\" y=\"18\" font-size=\"26\" font-weight=\"700\" text-anchor=\"middle\" fill=\"#c22f3a\">E</text><line x1=\"163.3\" y1=\"24\" x2=\"163.3\" y2=\"58\" stroke=\"#c22f3a\" stroke-width=\"2\"/><polygon points=\"163.3,66 158.3,56 168.3,56\" fill=\"#c22f3a\"/></svg>",
+  "parts": [
+   {
+    "type": "num",
+    "label": "a) A =",
+    "accept": [
+     64
+    ]
+   },
+   {
+    "type": "num",
+    "label": "a) B =",
+    "accept": [
+     72
+    ]
+   },
+   {
+    "type": "num",
+    "label": "a) C =",
+    "accept": [
+     67
+    ]
+   },
+   {
+    "type": "num",
+    "label": "a) D =",
+    "accept": [
+     58
+    ]
+   },
+   {
+    "type": "num",
+    "label": "a) E =",
+    "accept": [
+     75
+    ]
+   },
+   {
+    "type": "num",
+    "label": "b) A =",
+    "accept": [
+     42
+    ]
+   },
+   {
+    "type": "num",
+    "label": "b) B =",
+    "accept": [
+     33
+    ]
+   },
+   {
+    "type": "num",
+    "label": "b) C =",
+    "accept": [
+     39
+    ]
+   },
+   {
+    "type": "num",
+    "label": "b) D =",
+    "accept": [
+     25
+    ]
+   },
+   {
+    "type": "num",
+    "label": "b) E =",
+    "accept": [
+     28
+    ]
+   }
+  ],
+  "tip": "Gehe von der nächsten beschrifteten Zahl (60, 70 oder 30, 40) aus und zähle die Striche nach links oder rechts.",
+  "sol": "<p class=\"calc\">a) A: 60 + 4 = <b>64</b><br>B: 70 + 2 = <b>72</b><br>C: 70 − 3 = <b>67</b><br>D: 60 − 2 = <b>58</b><br>E: 70 + 5 = <b>75</b><br><br>b) A: 40 + 2 = <b>42</b><br>B: 30 + 3 = <b>33</b><br>C: 40 − 1 = <b>39</b><br>D: 30 − 5 = <b>25</b><br>E: 30 − 2 = <b>28</b></p>",
+  "alt": "Zum Üben im Heft: Zeichne die Zahlenstrahlen ab und trage die Zahlen selbst ein, so wie auf dem Papierblatt."
+ },
+ {
+  "src": "Arbeitsblatt, Aufgabe 4",
+  "q": "Ordne die Zahlen den Zahlwörtern zu. Schreibe die passende Zahl in das Feld. Zwei Zahlen bleiben übrig.",
+  "fig": "<p>Zahlenkärtchen: <span style=\"display:inline-block;margin:3px 6px 3px 0;padding:4px 12px;border:2px solid #7aa7e0;border-radius:6px;background:#e8f1fc;font-weight:600\">5040</span><span style=\"display:inline-block;margin:3px 6px 3px 0;padding:4px 12px;border:2px solid #7aa7e0;border-radius:6px;background:#e8f1fc;font-weight:600\">504</span><span style=\"display:inline-block;margin:3px 6px 3px 0;padding:4px 12px;border:2px solid #7aa7e0;border-radius:6px;background:#e8f1fc;font-weight:600\">5004</span><span style=\"display:inline-block;margin:3px 6px 3px 0;padding:4px 12px;border:2px solid #7aa7e0;border-radius:6px;background:#e8f1fc;font-weight:600\">54</span><span style=\"display:inline-block;margin:3px 6px 3px 0;padding:4px 12px;border:2px solid #7aa7e0;border-radius:6px;background:#e8f1fc;font-weight:600\">45</span><span style=\"display:inline-block;margin:3px 6px 3px 0;padding:4px 12px;border:2px solid #7aa7e0;border-radius:6px;background:#e8f1fc;font-weight:600\">450</span></p>",
+  "parts": [
+   {
+    "type": "num",
+    "label": "A vierhundertfünfzig =",
+    "accept": [
+     450
+    ]
+   },
+   {
+    "type": "num",
+    "label": "B fünftausendvierzig =",
+    "accept": [
+     5040
+    ]
+   },
+   {
+    "type": "num",
+    "label": "C fünftausendvier =",
+    "accept": [
+     5004
+    ]
+   },
+   {
+    "type": "num",
+    "label": "D vierundfünfzig =",
+    "accept": [
+     54
+    ]
+   }
+  ],
+  "tip": "Zerlege das Zahlwort in Teile, zum Beispiel fünftausend | vier. Achte darauf, welche Stellen mit 0 gefüllt werden müssen.",
+  "sol": "<p class=\"calc\">A: vierhundert + fünfzig = 400 + 50 = <b>450</b><br>B: fünftausend + vierzig = 5000 + 40 = <b>5040</b><br>C: fünftausend + vier = 5000 + 4 = <b>5004</b><br>D: vier + fünfzig = 4 + 50 = <b>54</b></p>",
+  "alt": "Übrig bleiben 504 (fünfhundertvier) und 45 (fünfundvierzig). Achtung, im Deutschen sprechen wir bei „vierundfünfzig“ die Einer zuerst, geschrieben wird aber 54."
+ },
+ {
+  "src": "Arbeitsblatt, Aufgabe 5",
+  "q": "Werte das Diagramm aus. Prüfe die Aussagen. Welche sind richtig?",
+  "fig": "<svg viewBox=\"0 0 560 300\" role=\"img\" aria-label=\"Säulendiagramm Feiertage: Slowakei 15, Schweiz 4, Österreich 13, Spanien 14, Land Berlin 9, Baden-Württemberg 12\" xmlns=\"http://www.w3.org/2000/svg\"><text x=\"12\" y=\"20\" font-size=\"14\" fill=\"#1d2433\">Anzahl</text><text x=\"300\" y=\"20\" font-size=\"16\" font-weight=\"700\" text-anchor=\"middle\" fill=\"#1d2433\">Feiertage</text><line x1=\"45\" y1=\"240\" x2=\"545\" y2=\"240\" stroke=\"#e3ebf5\"/><text x=\"38\" y=\"245\" font-size=\"13\" text-anchor=\"end\" fill=\"#1d2433\">0</text><line x1=\"45\" y1=\"216\" x2=\"545\" y2=\"216\" stroke=\"#e3ebf5\"/><line x1=\"45\" y1=\"192\" x2=\"545\" y2=\"192\" stroke=\"#e3ebf5\"/><text x=\"38\" y=\"197\" font-size=\"13\" text-anchor=\"end\" fill=\"#1d2433\">4</text><line x1=\"45\" y1=\"168\" x2=\"545\" y2=\"168\" stroke=\"#e3ebf5\"/><line x1=\"45\" y1=\"144\" x2=\"545\" y2=\"144\" stroke=\"#e3ebf5\"/><text x=\"38\" y=\"149\" font-size=\"13\" text-anchor=\"end\" fill=\"#1d2433\">8</text><line x1=\"45\" y1=\"120\" x2=\"545\" y2=\"120\" stroke=\"#e3ebf5\"/><line x1=\"45\" y1=\"96\" x2=\"545\" y2=\"96\" stroke=\"#e3ebf5\"/><text x=\"38\" y=\"101\" font-size=\"13\" text-anchor=\"end\" fill=\"#1d2433\">12</text><line x1=\"45\" y1=\"72\" x2=\"545\" y2=\"72\" stroke=\"#e3ebf5\"/><line x1=\"45\" y1=\"48\" x2=\"545\" y2=\"48\" stroke=\"#e3ebf5\"/><text x=\"38\" y=\"53\" font-size=\"13\" text-anchor=\"end\" fill=\"#1d2433\">16</text><line x1=\"45\" y1=\"240\" x2=\"545\" y2=\"240\" stroke=\"#1d2433\" stroke-width=\"2\"/><line x1=\"45\" y1=\"240\" x2=\"45\" y2=\"30\" stroke=\"#1d2433\" stroke-width=\"2\"/><rect x=\"65\" y=\"60\" width=\"48\" height=\"180\" fill=\"#7cbf4f\" stroke=\"#555\" stroke-width=\".8\"/><text x=\"89\" y=\"54\" font-size=\"16\" font-weight=\"700\" text-anchor=\"middle\">15</text><text x=\"89\" y=\"260\" font-size=\"15\" text-anchor=\"middle\">Slowakei</text><rect x=\"145\" y=\"192\" width=\"48\" height=\"48\" fill=\"#4f95d9\" stroke=\"#555\" stroke-width=\".8\"/><text x=\"169\" y=\"186\" font-size=\"16\" font-weight=\"700\" text-anchor=\"middle\">4</text><text x=\"169\" y=\"260\" font-size=\"15\" text-anchor=\"middle\">Schweiz</text><rect x=\"225\" y=\"84\" width=\"48\" height=\"156\" fill=\"#f39a3a\" stroke=\"#555\" stroke-width=\".8\"/><text x=\"249\" y=\"78\" font-size=\"16\" font-weight=\"700\" text-anchor=\"middle\">13</text><text x=\"249\" y=\"260\" font-size=\"15\" text-anchor=\"middle\">Österreich</text><rect x=\"305\" y=\"72\" width=\"48\" height=\"168\" fill=\"#f2cc35\" stroke=\"#555\" stroke-width=\".8\"/><text x=\"329\" y=\"66\" font-size=\"16\" font-weight=\"700\" text-anchor=\"middle\">14</text><text x=\"329\" y=\"260\" font-size=\"15\" text-anchor=\"middle\">Spanien</text><rect x=\"385\" y=\"132\" width=\"48\" height=\"108\" fill=\"#e05a5a\" stroke=\"#555\" stroke-width=\".8\"/><text x=\"409\" y=\"126\" font-size=\"16\" font-weight=\"700\" text-anchor=\"middle\">9</text><text x=\"409\" y=\"260\" font-size=\"15\" text-anchor=\"middle\">Land Berlin</text><rect x=\"465\" y=\"96\" width=\"48\" height=\"144\" fill=\"#4fb0e0\" stroke=\"#555\" stroke-width=\".8\"/><text x=\"489\" y=\"90\" font-size=\"16\" font-weight=\"700\" text-anchor=\"middle\">12</text><text x=\"489\" y=\"260\" font-size=\"15\" text-anchor=\"middle\">Baden-Württ.</text></svg>",
+  "parts": [
+   {
+    "type": "mc",
+    "label": "A: In Baden-Württemberg gibt es dreimal so viele Feiertage wie in der Schweiz.",
+    "options": [
+     "richtig",
+     "falsch"
+    ],
+    "correct": 0
+   },
+   {
+    "type": "mc",
+    "label": "B: Vier Länder haben weniger Feiertage als Österreich.",
+    "options": [
+     "richtig",
+     "falsch"
+    ],
+    "correct": 1
+   },
+   {
+    "type": "mc",
+    "label": "C: Spanien hat fünf Tage mehr frei als Berlin.",
+    "options": [
+     "richtig",
+     "falsch"
+    ],
+    "correct": 0
+   }
+  ],
+  "tip": "Lies zuerst alle Werte ab. Bei B zählst du nur die Länder, deren Säule niedriger ist als die von Österreich.",
+  "sol": "<p class=\"calc\">A: Schweiz 4, Baden-Württemberg 12<br>3 · 4 = 12, also <b>richtig</b><br><br>B: Österreich hat 13 Feiertage.<br>Weniger haben Schweiz (4), Berlin (9) und Baden-Württemberg (12).<br>Das sind nur drei Länder, also <b>falsch</b><br><br>C: Spanien 14, Berlin 9<br>14 − 9 = 5, also <b>richtig</b></p>",
+  "alt": "Bei B wird gern die Slowakei (15) oder Spanien (14) mitgezählt. Diese beiden haben aber mehr Feiertage als Österreich."
+ },
+ {
+  "src": "Arbeitsblatt, Aufgabe 6",
+  "q": "Bestimme die Schrittlänge, also den Abstand von einem Strich zum nächsten. Notiere dann die Zahlen, die an den Pfeilen stehen.",
+  "fig": "<p><b>a)</b></p><svg viewBox=\"0 -8 620 128\" role=\"img\" aria-label=\"Zahlenstrahl von 0 bis 100 mit Pfeilen A bis D\" xmlns=\"http://www.w3.org/2000/svg\"><line x1=\"15\" y1=\"70\" x2=\"608\" y2=\"70\" stroke=\"#1d2433\" stroke-width=\"2\"/><polygon points=\"614,70 602,64 602,76\" fill=\"#1d2433\"/><line x1=\"30.0\" y1=\"59\" x2=\"30.0\" y2=\"81\" stroke=\"#1d2433\" stroke-width=\"2\"/><text x=\"30.0\" y=\"108\" font-size=\"26\" text-anchor=\"middle\" fill=\"#1d2433\">0</text><line x1=\"58.0\" y1=\"64\" x2=\"58.0\" y2=\"76\" stroke=\"#1d2433\" stroke-width=\"1.2\"/><line x1=\"86.0\" y1=\"64\" x2=\"86.0\" y2=\"76\" stroke=\"#1d2433\" stroke-width=\"1.2\"/><line x1=\"114.0\" y1=\"64\" x2=\"114.0\" y2=\"76\" stroke=\"#1d2433\" stroke-width=\"1.2\"/><line x1=\"142.0\" y1=\"64\" x2=\"142.0\" y2=\"76\" stroke=\"#1d2433\" stroke-width=\"1.2\"/><line x1=\"170.0\" y1=\"64\" x2=\"170.0\" y2=\"76\" stroke=\"#1d2433\" stroke-width=\"1.2\"/><line x1=\"198.0\" y1=\"64\" x2=\"198.0\" y2=\"76\" stroke=\"#1d2433\" stroke-width=\"1.2\"/><line x1=\"226.0\" y1=\"64\" x2=\"226.0\" y2=\"76\" stroke=\"#1d2433\" stroke-width=\"1.2\"/><line x1=\"254.0\" y1=\"64\" x2=\"254.0\" y2=\"76\" stroke=\"#1d2433\" stroke-width=\"1.2\"/><line x1=\"282.0\" y1=\"64\" x2=\"282.0\" y2=\"76\" stroke=\"#1d2433\" stroke-width=\"1.2\"/><line x1=\"310.0\" y1=\"59\" x2=\"310.0\" y2=\"81\" stroke=\"#1d2433\" stroke-width=\"2\"/><text x=\"310.0\" y=\"108\" font-size=\"26\" text-anchor=\"middle\" fill=\"#1d2433\">50</text><line x1=\"338.0\" y1=\"64\" x2=\"338.0\" y2=\"76\" stroke=\"#1d2433\" stroke-width=\"1.2\"/><line x1=\"366.0\" y1=\"64\" x2=\"366.0\" y2=\"76\" stroke=\"#1d2433\" stroke-width=\"1.2\"/><line x1=\"394.0\" y1=\"64\" x2=\"394.0\" y2=\"76\" stroke=\"#1d2433\" stroke-width=\"1.2\"/><line x1=\"422.0\" y1=\"64\" x2=\"422.0\" y2=\"76\" stroke=\"#1d2433\" stroke-width=\"1.2\"/><line x1=\"450.0\" y1=\"64\" x2=\"450.0\" y2=\"76\" stroke=\"#1d2433\" stroke-width=\"1.2\"/><line x1=\"478.0\" y1=\"64\" x2=\"478.0\" y2=\"76\" stroke=\"#1d2433\" stroke-width=\"1.2\"/><line x1=\"506.0\" y1=\"64\" x2=\"506.0\" y2=\"76\" stroke=\"#1d2433\" stroke-width=\"1.2\"/><line x1=\"534.0\" y1=\"64\" x2=\"534.0\" y2=\"76\" stroke=\"#1d2433\" stroke-width=\"1.2\"/><line x1=\"562.0\" y1=\"64\" x2=\"562.0\" y2=\"76\" stroke=\"#1d2433\" stroke-width=\"1.2\"/><line x1=\"590.0\" y1=\"59\" x2=\"590.0\" y2=\"81\" stroke=\"#1d2433\" stroke-width=\"2\"/><text x=\"590.0\" y=\"108\" font-size=\"26\" text-anchor=\"middle\" fill=\"#1d2433\">100</text><text x=\"114.0\" y=\"18\" font-size=\"26\" font-weight=\"700\" text-anchor=\"middle\" fill=\"#c22f3a\">A</text><line x1=\"114.0\" y1=\"24\" x2=\"114.0\" y2=\"58\" stroke=\"#c22f3a\" stroke-width=\"2\"/><polygon points=\"114.0,66 109.0,56 119.0,56\" fill=\"#c22f3a\"/><text x=\"254.0\" y=\"18\" font-size=\"26\" font-weight=\"700\" text-anchor=\"middle\" fill=\"#c22f3a\">B</text><line x1=\"254.0\" y1=\"24\" x2=\"254.0\" y2=\"58\" stroke=\"#c22f3a\" stroke-width=\"2\"/><polygon points=\"254.0,66 249.0,56 259.0,56\" fill=\"#c22f3a\"/><text x=\"366.0\" y=\"18\" font-size=\"26\" font-weight=\"700\" text-anchor=\"middle\" fill=\"#c22f3a\">C</text><line x1=\"366.0\" y1=\"24\" x2=\"366.0\" y2=\"58\" stroke=\"#c22f3a\" stroke-width=\"2\"/><polygon points=\"366.0,66 361.0,56 371.0,56\" fill=\"#c22f3a\"/><text x=\"506.0\" y=\"18\" font-size=\"26\" font-weight=\"700\" text-anchor=\"middle\" fill=\"#c22f3a\">D</text><line x1=\"506.0\" y1=\"24\" x2=\"506.0\" y2=\"58\" stroke=\"#c22f3a\" stroke-width=\"2\"/><polygon points=\"506.0,66 501.0,56 511.0,56\" fill=\"#c22f3a\"/></svg><p><b>b)</b></p><svg viewBox=\"0 -8 620 128\" role=\"img\" aria-label=\"Zahlenstrahl von 0 bis 20 mit Pfeilen A bis D\" xmlns=\"http://www.w3.org/2000/svg\"><line x1=\"15\" y1=\"70\" x2=\"608\" y2=\"70\" stroke=\"#1d2433\" stroke-width=\"2\"/><polygon points=\"614,70 602,64 602,76\" fill=\"#1d2433\"/><line x1=\"30.0\" y1=\"59\" x2=\"30.0\" y2=\"81\" stroke=\"#1d2433\" stroke-width=\"2\"/><text x=\"30.0\" y=\"108\" font-size=\"26\" text-anchor=\"middle\" fill=\"#1d2433\">0</text><line x1=\"58.0\" y1=\"64\" x2=\"58.0\" y2=\"76\" stroke=\"#1d2433\" stroke-width=\"1.2\"/><line x1=\"86.0\" y1=\"64\" x2=\"86.0\" y2=\"76\" stroke=\"#1d2433\" stroke-width=\"1.2\"/><line x1=\"114.0\" y1=\"64\" x2=\"114.0\" y2=\"76\" stroke=\"#1d2433\" stroke-width=\"1.2\"/><line x1=\"142.0\" y1=\"64\" x2=\"142.0\" y2=\"76\" stroke=\"#1d2433\" stroke-width=\"1.2\"/><line x1=\"170.0\" y1=\"64\" x2=\"170.0\" y2=\"76\" stroke=\"#1d2433\" stroke-width=\"1.2\"/><line x1=\"198.0\" y1=\"64\" x2=\"198.0\" y2=\"76\" stroke=\"#1d2433\" stroke-width=\"1.2\"/><line x1=\"226.0\" y1=\"64\" x2=\"226.0\" y2=\"76\" stroke=\"#1d2433\" stroke-width=\"1.2\"/><line x1=\"254.0\" y1=\"64\" x2=\"254.0\" y2=\"76\" stroke=\"#1d2433\" stroke-width=\"1.2\"/><line x1=\"282.0\" y1=\"64\" x2=\"282.0\" y2=\"76\" stroke=\"#1d2433\" stroke-width=\"1.2\"/><line x1=\"310.0\" y1=\"59\" x2=\"310.0\" y2=\"81\" stroke=\"#1d2433\" stroke-width=\"2\"/><text x=\"310.0\" y=\"108\" font-size=\"26\" text-anchor=\"middle\" fill=\"#1d2433\">10</text><line x1=\"338.0\" y1=\"64\" x2=\"338.0\" y2=\"76\" stroke=\"#1d2433\" stroke-width=\"1.2\"/><line x1=\"366.0\" y1=\"64\" x2=\"366.0\" y2=\"76\" stroke=\"#1d2433\" stroke-width=\"1.2\"/><line x1=\"394.0\" y1=\"64\" x2=\"394.0\" y2=\"76\" stroke=\"#1d2433\" stroke-width=\"1.2\"/><line x1=\"422.0\" y1=\"64\" x2=\"422.0\" y2=\"76\" stroke=\"#1d2433\" stroke-width=\"1.2\"/><line x1=\"450.0\" y1=\"64\" x2=\"450.0\" y2=\"76\" stroke=\"#1d2433\" stroke-width=\"1.2\"/><line x1=\"478.0\" y1=\"64\" x2=\"478.0\" y2=\"76\" stroke=\"#1d2433\" stroke-width=\"1.2\"/><line x1=\"506.0\" y1=\"64\" x2=\"506.0\" y2=\"76\" stroke=\"#1d2433\" stroke-width=\"1.2\"/><line x1=\"534.0\" y1=\"64\" x2=\"534.0\" y2=\"76\" stroke=\"#1d2433\" stroke-width=\"1.2\"/><line x1=\"562.0\" y1=\"64\" x2=\"562.0\" y2=\"76\" stroke=\"#1d2433\" stroke-width=\"1.2\"/><line x1=\"590.0\" y1=\"59\" x2=\"590.0\" y2=\"81\" stroke=\"#1d2433\" stroke-width=\"2\"/><text x=\"590.0\" y=\"108\" font-size=\"26\" text-anchor=\"middle\" fill=\"#1d2433\">20</text><text x=\"86.0\" y=\"18\" font-size=\"26\" font-weight=\"700\" text-anchor=\"middle\" fill=\"#c22f3a\">A</text><line x1=\"86.0\" y1=\"24\" x2=\"86.0\" y2=\"58\" stroke=\"#c22f3a\" stroke-width=\"2\"/><polygon points=\"86.0,66 81.0,56 91.0,56\" fill=\"#c22f3a\"/><text x=\"254.0\" y=\"18\" font-size=\"26\" font-weight=\"700\" text-anchor=\"middle\" fill=\"#c22f3a\">B</text><line x1=\"254.0\" y1=\"24\" x2=\"254.0\" y2=\"58\" stroke=\"#c22f3a\" stroke-width=\"2\"/><polygon points=\"254.0,66 249.0,56 259.0,56\" fill=\"#c22f3a\"/><text x=\"366.0\" y=\"18\" font-size=\"26\" font-weight=\"700\" text-anchor=\"middle\" fill=\"#c22f3a\">C</text><line x1=\"366.0\" y1=\"24\" x2=\"366.0\" y2=\"58\" stroke=\"#c22f3a\" stroke-width=\"2\"/><polygon points=\"366.0,66 361.0,56 371.0,56\" fill=\"#c22f3a\"/><text x=\"534.0\" y=\"18\" font-size=\"26\" font-weight=\"700\" text-anchor=\"middle\" fill=\"#c22f3a\">D</text><line x1=\"534.0\" y1=\"24\" x2=\"534.0\" y2=\"58\" stroke=\"#c22f3a\" stroke-width=\"2\"/><polygon points=\"534.0,66 529.0,56 539.0,56\" fill=\"#c22f3a\"/></svg>",
+  "parts": [
+   {
+    "type": "num",
+    "label": "a) Schrittlänge:",
+    "accept": [
+     5
+    ]
+   },
+   {
+    "type": "num",
+    "label": "a) A =",
+    "accept": [
+     15
+    ]
+   },
+   {
+    "type": "num",
+    "label": "a) B =",
+    "accept": [
+     40
+    ]
+   },
+   {
+    "type": "num",
+    "label": "a) C =",
+    "accept": [
+     60
+    ]
+   },
+   {
+    "type": "num",
+    "label": "a) D =",
+    "accept": [
+     85
+    ]
+   },
+   {
+    "type": "num",
+    "label": "b) Schrittlänge:",
+    "accept": [
+     1
+    ]
+   },
+   {
+    "type": "num",
+    "label": "b) A =",
+    "accept": [
+     2
+    ]
+   },
+   {
+    "type": "num",
+    "label": "b) B =",
+    "accept": [
+     8
+    ]
+   },
+   {
+    "type": "num",
+    "label": "b) C =",
+    "accept": [
+     12
+    ]
+   },
+   {
+    "type": "num",
+    "label": "b) D =",
+    "accept": [
+     18
+    ]
+   }
+  ],
+  "tip": "Zähle, wie viele Schritte zwischen 0 und der ersten beschrifteten Zahl liegen. Teile dann die Zahl durch die Anzahl der Schritte.",
+  "sol": "<p class=\"calc\">a) Von 0 bis 50 sind es 10 Schritte.<br>50 : 10 = <b>5</b><br>A: 3 Schritte, 3 · 5 = <b>15</b><br>B: 8 Schritte, 8 · 5 = <b>40</b><br>C: 50 + 2 · 5 = <b>60</b><br>D: 100 − 3 · 5 = <b>85</b><br><br>b) Von 0 bis 10 sind es 10 Schritte.<br>10 : 10 = <b>1</b><br>A: <b>2</b> &nbsp; B: 10 − 2 = <b>8</b><br>C: 10 + 2 = <b>12</b> &nbsp; D: 20 − 2 = <b>18</b></p>"
+ },
+ {
+  "src": "Arbeitsblatt, Aufgabe 7",
+  "q": "Eine Elefantenkuh bringt durchschnittlich alle 4 bis 5 Jahre ein Kalb zur Welt. Auf dem Foto sind fünf Elefanten mit ihrem Gewicht. Gib an, wie viel die Elefanten zusammen wiegen. Überschlage zuerst das Ergebnis.",
+  "fig": "<p><span style=\"display:inline-block;margin:4px 8px 4px 0;padding:6px 14px;border:2px solid #d9a6e8;border-radius:8px;background:#fbefff;font-weight:700\">🐘 6 331 kg</span><span style=\"display:inline-block;margin:4px 8px 4px 0;padding:6px 14px;border:2px solid #d9a6e8;border-radius:8px;background:#fbefff;font-weight:700\">🐘 3 078 kg</span><span style=\"display:inline-block;margin:4px 8px 4px 0;padding:6px 14px;border:2px solid #d9a6e8;border-radius:8px;background:#fbefff;font-weight:700\">🐘 908 kg</span><span style=\"display:inline-block;margin:4px 8px 4px 0;padding:6px 14px;border:2px solid #d9a6e8;border-radius:8px;background:#fbefff;font-weight:700\">🐘 1 369 kg</span><span style=\"display:inline-block;margin:4px 8px 4px 0;padding:6px 14px;border:2px solid #d9a6e8;border-radius:8px;background:#fbefff;font-weight:700\">🐘 137 kg</span></p>",
+  "parts": [
+   {
+    "type": "num",
+    "label": "Überschlag:",
+    "unit": "kg",
+    "accept": [
+     11750
+    ],
+    "tol": 750
+   },
+   {
+    "type": "num",
+    "label": "Genaues Ergebnis:",
+    "unit": "kg",
+    "accept": [
+     11823
+    ],
+    "tol": 0
+   }
+  ],
+  "tip": "Der erste Satz mit dem Kalb ist für die Rechnung nicht wichtig. Runde für den Überschlag jedes Gewicht auf Hunderter oder Tausender.",
+  "sol": "<p class=\"calc\">Überschlag, auf Hunderter gerundet<br>6 300 + 3 100 = 9 400<br>9 400 + 900 = 10 300<br>10 300 + 1 400 = 11 700<br>11 700 + 100 = <b>11 800 kg</b><br><br>Genau<br>6 331 + 3 078 = 9 409<br>9 409 + 908 = 10 317<br>10 317 + 1 369 = 11 686<br>11 686 + 137 = <b>11 823 kg</b></p><p>Der Überschlag 11 800 kg liegt ganz nah am Ergebnis, also passt die Rechnung.</p>",
+  "alt": "Beim Überschlag ist alles zwischen etwa 11 000 kg und 12 500 kg richtig, zum Beispiel auch 6 000 + 3 000 + 1 000 + 1 000 + 0 = 11 000 kg (auf Tausender gerundet). Das Ergebnis darfst du auch in Tonnen denken, 11 823 kg sind knapp 12 t."
+ },
+ {
+  "src": "Arbeitsblatt, Aufgabe 8",
+  "q": "Schreibe die Zahlen im Heft stellengerecht untereinander und berechne die Summe. Überschlage vorher im Kopf. Trage hier die genaue Summe ein.",
+  "parts": [
+   {
+    "type": "num",
+    "label": "a) 234 + 456 + 789 =",
+    "accept": [
+     1479
+    ],
+    "tol": 0
+   },
+   {
+    "type": "num",
+    "label": "b) 707 + 880 + 99 =",
+    "accept": [
+     1686
+    ],
+    "tol": 0
+   },
+   {
+    "type": "num",
+    "label": "c) 5439 + 68 + 827 =",
+    "accept": [
+     6334
+    ],
+    "tol": 0
+   },
+   {
+    "type": "num",
+    "label": "d) 958 + 3897 + 9879 =",
+    "accept": [
+     14734
+    ],
+    "tol": 0
+   },
+   {
+    "type": "num",
+    "label": "e) 17 906 + 87 + 469 =",
+    "accept": [
+     18462
+    ],
+    "tol": 0
+   },
+   {
+    "type": "num",
+    "label": "f) 11 287 + 30 978 + 35 =",
+    "accept": [
+     42300
+    ],
+    "tol": 0
+   }
+  ],
+  "tip": "Einer unter Einer, Zehner unter Zehner. Fange rechts bei den Einern an und vergiss den Übertrag nicht. Vergleiche am Ende mit deinem Überschlag.",
+  "sol": "<p><b>a) 234 + 456 + 789</b><br>Überschlag: 200 + 500 + 800 = 1 500</p><table style=\"font-family:Georgia,serif;font-size:1.1rem;border-collapse:collapse;margin:6px 0\"><tr><td></td><td></td><td>2</td><td>3</td><td>4</td></tr><tr><td>+</td><td></td><td>4</td><td>5</td><td>6</td></tr><tr><td>+</td><td></td><td>7</td><td>8</td><td>9</td></tr><tr style=\"color:#c22f3a;font-size:.8em\"><td></td><td>1</td><td>1</td><td>1</td><td></td></tr><tr style=\"border-top:2px solid #1d2433;font-weight:700\"><td>=</td><td>1</td><td>4</td><td>7</td><td>9</td></tr></table><p class=\"calc\" style=\"font-size:.95rem\">Einer: 4 + 6 + 9 = 19, schreibe 9, übertrage 1<br>Zehner: 3 + 5 + 8 + 1 (Übertrag) = 17, schreibe 7, übertrage 1<br>Hunderter: 2 + 4 + 7 + 1 (Übertrag) = 14, schreibe 4, übertrage 1<br>Tausender:  + 1 (Übertrag) = 1, schreibe 1<br>Ergebnis: <b>1479</b></p><hr style=\"border:none;border-top:1px dashed #9ccab0\"><p><b>b) 707 + 880 + 99</b><br>Überschlag: 700 + 900 + 100 = 1 700</p><table style=\"font-family:Georgia,serif;font-size:1.1rem;border-collapse:collapse;margin:6px 0\"><tr><td></td><td></td><td>7</td><td>0</td><td>7</td></tr><tr><td>+</td><td></td><td>8</td><td>8</td><td>0</td></tr><tr><td>+</td><td></td><td></td><td>9</td><td>9</td></tr><tr style=\"color:#c22f3a;font-size:.8em\"><td></td><td>1</td><td>1</td><td>1</td><td></td></tr><tr style=\"border-top:2px solid #1d2433;font-weight:700\"><td>=</td><td>1</td><td>6</td><td>8</td><td>6</td></tr></table><p class=\"calc\" style=\"font-size:.95rem\">Einer: 7 + 0 + 9 = 16, schreibe 6, übertrage 1<br>Zehner: 0 + 8 + 9 + 1 (Übertrag) = 18, schreibe 8, übertrage 1<br>Hunderter: 7 + 8 + 1 (Übertrag) = 16, schreibe 6, übertrage 1<br>Tausender:  + 1 (Übertrag) = 1, schreibe 1<br>Ergebnis: <b>1686</b></p><hr style=\"border:none;border-top:1px dashed #9ccab0\"><p><b>c) 5439 + 68 + 827</b><br>Überschlag: 5 400 + 100 + 800 = 6 300</p><table style=\"font-family:Georgia,serif;font-size:1.1rem;border-collapse:collapse;margin:6px 0\"><tr><td></td><td>5</td><td>4</td><td>3</td><td>9</td></tr><tr><td>+</td><td></td><td></td><td>6</td><td>8</td></tr><tr><td>+</td><td></td><td>8</td><td>2</td><td>7</td></tr><tr style=\"color:#c22f3a;font-size:.8em\"><td></td><td>1</td><td>1</td><td>2</td><td></td></tr><tr style=\"border-top:2px solid #1d2433;font-weight:700\"><td>=</td><td>6</td><td>3</td><td>3</td><td>4</td></tr></table><p class=\"calc\" style=\"font-size:.95rem\">Einer: 9 + 8 + 7 = 24, schreibe 4, übertrage 2<br>Zehner: 3 + 6 + 2 + 2 (Übertrag) = 13, schreibe 3, übertrage 1<br>Hunderter: 4 + 8 + 1 (Übertrag) = 13, schreibe 3, übertrage 1<br>Tausender: 5 + 1 (Übertrag) = 6, schreibe 6<br>Ergebnis: <b>6334</b></p><hr style=\"border:none;border-top:1px dashed #9ccab0\"><p><b>d) 958 + 3897 + 9879</b><br>Überschlag: 1 000 + 3 900 + 9 900 = 14 800</p><table style=\"font-family:Georgia,serif;font-size:1.1rem;border-collapse:collapse;margin:6px 0\"><tr><td></td><td></td><td></td><td>9</td><td>5</td><td>8</td></tr><tr><td>+</td><td></td><td>3</td><td>8</td><td>9</td><td>7</td></tr><tr><td>+</td><td></td><td>9</td><td>8</td><td>7</td><td>9</td></tr><tr style=\"color:#c22f3a;font-size:.8em\"><td></td><td>1</td><td>2</td><td>2</td><td>2</td><td></td></tr><tr style=\"border-top:2px solid #1d2433;font-weight:700\"><td>=</td><td>1</td><td>4</td><td>7</td><td>3</td><td>4</td></tr></table><p class=\"calc\" style=\"font-size:.95rem\">Einer: 8 + 7 + 9 = 24, schreibe 4, übertrage 2<br>Zehner: 5 + 9 + 7 + 2 (Übertrag) = 23, schreibe 3, übertrage 2<br>Hunderter: 9 + 8 + 8 + 2 (Übertrag) = 27, schreibe 7, übertrage 2<br>Tausender: 3 + 9 + 2 (Übertrag) = 14, schreibe 4, übertrage 1<br>Zehntausender:  + 1 (Übertrag) = 1, schreibe 1<br>Ergebnis: <b>14 734</b></p><hr style=\"border:none;border-top:1px dashed #9ccab0\"><p><b>e) 17 906 + 87 + 469</b><br>Überschlag: 17 900 + 100 + 500 = 18 500</p><table style=\"font-family:Georgia,serif;font-size:1.1rem;border-collapse:collapse;margin:6px 0\"><tr><td></td><td>1</td><td>7</td><td>9</td><td>0</td><td>6</td></tr><tr><td>+</td><td></td><td></td><td></td><td>8</td><td>7</td></tr><tr><td>+</td><td></td><td></td><td>4</td><td>6</td><td>9</td></tr><tr style=\"color:#c22f3a;font-size:.8em\"><td></td><td></td><td>1</td><td>1</td><td>2</td><td></td></tr><tr style=\"border-top:2px solid #1d2433;font-weight:700\"><td>=</td><td>1</td><td>8</td><td>4</td><td>6</td><td>2</td></tr></table><p class=\"calc\" style=\"font-size:.95rem\">Einer: 6 + 7 + 9 = 22, schreibe 2, übertrage 2<br>Zehner: 0 + 8 + 6 + 2 (Übertrag) = 16, schreibe 6, übertrage 1<br>Hunderter: 9 + 4 + 1 (Übertrag) = 14, schreibe 4, übertrage 1<br>Tausender: 7 + 1 (Übertrag) = 8, schreibe 8<br>Zehntausender: 1 = 1, schreibe 1<br>Ergebnis: <b>18 462</b></p><hr style=\"border:none;border-top:1px dashed #9ccab0\"><p><b>f) 11 287 + 30 978 + 35</b><br>Überschlag: 11 300 + 31 000 + 0 = 42 300</p><table style=\"font-family:Georgia,serif;font-size:1.1rem;border-collapse:collapse;margin:6px 0\"><tr><td></td><td>1</td><td>1</td><td>2</td><td>8</td><td>7</td></tr><tr><td>+</td><td>3</td><td>0</td><td>9</td><td>7</td><td>8</td></tr><tr><td>+</td><td></td><td></td><td></td><td>3</td><td>5</td></tr><tr style=\"color:#c22f3a;font-size:.8em\"><td></td><td></td><td>1</td><td>2</td><td>2</td><td></td></tr><tr style=\"border-top:2px solid #1d2433;font-weight:700\"><td>=</td><td>4</td><td>2</td><td>3</td><td>0</td><td>0</td></tr></table><p class=\"calc\" style=\"font-size:.95rem\">Einer: 7 + 8 + 5 = 20, schreibe 0, übertrage 2<br>Zehner: 8 + 7 + 3 + 2 (Übertrag) = 20, schreibe 0, übertrage 2<br>Hunderter: 2 + 9 + 2 (Übertrag) = 13, schreibe 3, übertrage 1<br>Tausender: 1 + 0 + 1 (Übertrag) = 2, schreibe 2<br>Zehntausender: 1 + 3 = 4, schreibe 4<br>Ergebnis: <b>42 300</b></p><hr style=\"border:none;border-top:1px dashed #9ccab0\">"
+ }
+];
+
+const LOB = ["Hervorragend, das sitzt!", "Gut gemacht, nur noch wenige Lücken.", "Ein solider Anfang. Wiederhole die Aufgaben, die noch nicht geklappt haben.", "Hier lohnt sich noch Übung. Nutze die Tipps und Lösungsvorschläge."];
+
+const TOTAL = T.reduce((s,t)=>s+(t.points||t.parts.length),0);
+const state = T.map(t=>({checked:false, ok:t.parts.map(()=>false), mc:t.parts.map(()=>null)}));
+
+function parseNum(raw){
+  if(!raw) return NaN;
+  let s = raw.toLowerCase().replace(/\s+/g,"").replace(/[−–]/g,"-")
+    .replace(/^[a-zα-ω]+[0-9]*=/,"")
+    .replace(/[^\d.,\/-].*$/,"")
+    .replace(",",".");
+  if(/^-?\d+(\.\d+)?\/-?\d+(\.\d+)?$/.test(s)){ const [a,b]=s.split("/").map(Number); return a/b; }
+  return /^-?\d*\.?\d+$/.test(s) ? Number(s) : NaN;
+}
+function normText(raw){
+  return (raw||"").toLowerCase().trim().replace(/\s+/g," ").replace(/[.!?;:,"„“']/g,"");
+}
+
+function render(){
+  const box = document.getElementById("tasks");
+  box.innerHTML = "";
+  T.forEach((t,i)=>{
+    const el = document.createElement("article");
+    el.className = "task"; el.id = "t"+i;
+    let html = `<div class="head"><span class="num">Aufgabe ${i+1}</span><span class="src">${t.src||""}</span></div>
+      <div class="q">${t.q}</div>${t.fig?`<div>${t.fig}</div>`:""}`;
+    t.parts.forEach((p,j)=>{
+      if(p.type==="num" || p.type==="text"){
+        html += `<div class="field"><label for="in${i}_${j}">${p.label||"Antwort:"}</label>
+          <input type="text" ${p.type==="num"?'':'class="wide"'} autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" enterkeyhint="done" id="in${i}_${j}">
+          ${p.unit?`<span class="unit">${p.unit}</span>`:""}</div>`;
+      } else {
+        html += `${p.label?`<div class="mclabel">${p.label}</div>`:""}<div class="mc" role="group" aria-label="Antwortmöglichkeiten">${p.options.map((o,k)=>
+          `<button type="button" aria-pressed="false" data-i="${i}" data-j="${j}" data-k="${k}">${o}</button>`).join("")}</div>`;
+      }
+    });
+    html += `<div class="actions">
+        <button class="btn" type="button" data-act="check" data-i="${i}">Prüfen</button>
+        ${t.tip?`<button class="btn ghost" type="button" data-act="tip" data-i="${i}">Tipp</button>`:""}
+        <button class="btn ghost" type="button" data-act="sol" data-i="${i}" disabled title="Erst nach dem Prüfen verfügbar">Lösungsvorschlag</button>
+      </div>
+      <div class="fb" id="fb${i}" aria-live="polite"></div>
+      ${t.tip?`<div class="box tip" id="tip${i}" hidden>💡 ${t.tip}</div>`:""}
+      <div class="box sol" id="sol${i}" hidden><h4>Lösungsvorschlag</h4>${t.sol}${t.alt?`<div class="alt">${t.alt}</div>`:""}</div>`;
+    el.innerHTML = html;
+    box.appendChild(el);
+  });
+}
+
+function check(i){
+  const t=T[i], st=state[i];
+  let allOk=true, anyEmpty=false;
+  t.parts.forEach((p,j)=>{
+    let ok=false;
+    if(p.type==="num" || p.type==="text"){
+      const inp=document.getElementById(`in${i}_${j}`);
+      if(inp.value.trim()==="") anyEmpty=true;
+      if(p.type==="num"){
+        const v=parseNum(inp.value), tol=p.tol||1e-6;
+        ok = !isNaN(v) && p.accept.some(a=>Math.abs(a-v)<=tol);
+      } else {
+        const v=normText(inp.value);
+        ok = v!=="" && p.accept.some(a=>normText(a)===v);
+      }
+      inp.classList.remove("ok","no"); if(inp.value.trim()!=="") inp.classList.add(ok?"ok":"no");
+    } else {
+      const sel=st.mc[j];
+      if(sel===null) anyEmpty=true;
+      ok = sel===p.correct;
+      document.querySelectorAll(`#t${i} .mc button[data-j="${j}"]`).forEach(b=>{
+        b.classList.remove("ok","no");
+        if(+b.dataset.k===sel) b.classList.add(ok?"ok":"no");
+      });
+    }
+    st.ok[j]=ok; if(!ok) allOk=false;
+  });
+  const fb=document.getElementById("fb"+i);
+  if(anyEmpty && !allOk){ fb.className="fb no"; fb.textContent="Trage zuerst eine Antwort ein oder wähle eine aus."; return; }
+  st.checked=true;
+  fb.className="fb "+(allOk?"ok":"no");
+  if(allOk) fb.textContent="✓ Richtig! Vergleiche trotzdem deinen Weg mit dem Lösungsvorschlag.";
+  else if(st.ok.some(Boolean)) fb.textContent="Teilweise richtig. Prüfe die rot markierte Antwort noch einmal.";
+  else fb.textContent="✗ Noch nicht richtig. Schau dir den Tipp an und versuche es noch einmal.";
+  const sb=document.querySelector(`#t${i} [data-act=sol]`); sb.disabled=false; sb.removeAttribute("title");
+  document.getElementById("t"+i).classList.toggle("done",allOk);
+  updateScore();
+}
+
+function points(i){
+  const t=T[i], ok=state[i].ok;
+  if(t.points) return ok.every(Boolean)?t.points:0;
+  return ok.filter(Boolean).length;
+}
+function updateScore(){
+  const s=T.reduce((a,_,i)=>a+points(i),0);
+  document.getElementById("score").textContent=`${s} von ${TOTAL} Punkten`;
+  document.getElementById("meter").style.width=(s/TOTAL*100)+"%";
+  return s;
+}
+
+document.addEventListener("click",e=>{
+  const b=e.target.closest("button"); if(!b) return;
+  if(b.closest(".mc")){
+    const i=+b.dataset.i, j=+b.dataset.j, k=+b.dataset.k;
+    state[i].mc[j]=k;
+    b.parentElement.querySelectorAll("button").forEach(x=>{x.setAttribute("aria-pressed",x===b?"true":"false"); x.classList.remove("ok","no");});
+    return;
+  }
+  const i=+b.dataset.i;
+  if(b.dataset.act==="check") check(i);
+  if(b.dataset.act==="tip"){ const t=document.getElementById("tip"+i); t.hidden=!t.hidden; }
+  if(b.dataset.act==="sol"){ const s=document.getElementById("sol"+i); s.hidden=!s.hidden; b.textContent=s.hidden?"Lösungsvorschlag":"Lösung ausblenden"; }
+});
+document.addEventListener("keydown",e=>{
+  if(e.key==="Enter" && e.target.matches("input[type=text]")){ check(+e.target.id.slice(2).split("_")[0]); }
+});
+
+document.getElementById("evalBtn").addEventListener("click",()=>{
+  const s=updateScore();
+  const open=[], wrong=[];
+  T.forEach((t,i)=>{ if(!state[i].checked) open.push(i+1); else if(points(i)<(t.points||t.parts.length)) wrong.push(i+1); });
+  const pct=Math.round(s/TOTAL*100);
+  let msg=`Du hast <b>${s} von ${TOTAL} Punkten</b> erreicht (${pct} %). `;
+  msg += pct>=90?LOB[0]:pct>=70?LOB[1]:pct>=50?LOB[2]:LOB[3];
+  if(wrong.length) msg+=`<br>Noch einmal ansehen: Aufgabe ${wrong.join(", ")}.`;
+  if(open.length) msg+=`<br>Noch nicht bearbeitet: Aufgabe ${open.join(", ")}.`;
+  document.getElementById("endText").innerHTML=msg;
+});
+
+document.getElementById("reset").addEventListener("click",()=>{
+  if(!confirm("Alle Eingaben löschen und neu beginnen?")) return;
+  state.forEach(s=>{s.checked=false; s.ok=s.ok.map(()=>false); s.mc=s.mc.map(()=>null);});
+  render(); updateScore();
+  document.getElementById("endText").textContent="Bearbeite die Aufgaben und klicke dann hier auf „Auswerten“.";
+  window.scrollTo(0,0);
+});
+
+render(); updateScore();
+
+/* Taschenrechner ohne eval */
+(function(){
+  const box=document.getElementById("calcBox"), btn=document.getElementById("calcBtn"),
+        ex=document.getElementById("cExpr"), res=document.getElementById("cRes"), take=document.getElementById("cTake");
+  let ans=0, last=null, target=null;
+  document.addEventListener("focusin",e=>{ if(e.target.matches("#tasks input[type=text]")){ target=e.target; upd(); } });
+  function upd(){ take.disabled=!(target&&last!==null); }
+  function fmt(v){ if(!isFinite(v)) return "Fehler"; let r=Math.round(v*1e10)/1e10; return String(r).replace(".",","); }
+  function calc(s){
+    s=s.replace(/\s+/g,"").replace(/,/g,".").replace(/[×*·]/g,"·").replace(/[÷\/:]/g,":").replace(/[−–]/g,"-");
+    let i=0;
+    const peek=()=>s[i];
+    function prim(){
+      let c=peek();
+      if(c==="+"){i++;return prim();} if(c==="-"){i++;return -pow();}
+      if(c==="("){i++;const v=add(); if(s[i]===")")i++; return v;}
+      if(c==="√"){i++;const v=pow(); if(v<0) throw 0; return Math.sqrt(v);}
+      if(c==="π"){i++;return Math.PI;}
+      if(s.startsWith("Ans",i)){i+=3;return ans;}
+      const m=/^\d*\.?\d+/.exec(s.slice(i)); if(!m) throw 0; i+=m[0].length; return Number(m[0]);
+    }
+    function post(){ let v=prim(); while(peek()==="²"){i++;v=v*v;} return v; }
+    function pow(){ const b=post(); if(peek()==="^"){i++;return Math.pow(b,prim());} return b; }
+    function mul(){ let v=pow(); for(;;){ const c=peek();
+        if(c==="·"){i++;v*=pow();} else if(c===":"){i++;const d=pow(); if(d===0) throw 0; v/=d;}
+        else if(c&&/[\d(√πA]/.test(c)){v*=pow();} else return v; } }
+    function add(){ let v=mul(); for(;;){ const c=peek(); if(c==="+"){i++;v+=mul();} else if(c==="-"){i++;v-=mul();} else return v; } }
+    const v=add(); if(i<s.length) throw 0; return v;
+  }
+  function run(){ if(!ex.value.trim()) return; try{ const v=calc(ex.value); if(!isFinite(v)) throw 0; last=v; ans=v; res.textContent="= "+fmt(v);}catch(_){ last=null; res.textContent="Rechnung prüfen"; } upd(); }
+  function ins(t){ const a=ex.selectionStart??ex.value.length, b=ex.selectionEnd??ex.value.length; ex.value=ex.value.slice(0,a)+t+ex.value.slice(b); const p=a+t.length; ex.setSelectionRange?.(p,p); }
+  btn.addEventListener("click",()=>{ box.hidden=!box.hidden; btn.setAttribute("aria-expanded",!box.hidden); });
+  document.getElementById("cClose").addEventListener("click",()=>{ box.hidden=true; btn.setAttribute("aria-expanded","false"); });
+  box.querySelector(".keys").addEventListener("click",e=>{
+    const b=e.target.closest("button"); if(!b) return; e.stopPropagation(); const c=b.dataset.c;
+    if(c==="AC"){ ex.value=""; res.textContent=""; last=null; upd(); }
+    else if(c==="DEL"){ ex.value=ex.value.slice(0,-1); }
+    else if(c==="="){ run(); }
+    else ins(c);
+  });
+  box.addEventListener("click",e=>e.stopPropagation());
+  ex.addEventListener("keydown",e=>{ if(e.key==="Enter"){ e.preventDefault(); e.stopPropagation(); run(); } });
+  take.addEventListener("click",()=>{ if(!target||last===null) return; target.value=fmt(last); target.focus(); box.hidden=true; btn.setAttribute("aria-expanded","false"); });
+  window.__calc=calc;
+})();
+</script>
+</body>
+</html>
